@@ -4,8 +4,9 @@ Du an custom train **YOLO26n** de nhan dien nguoi co doi mu va khong doi mu bao 
 
 ## Ket qua video
 
-- Video dau vao: [`aabc.mp4`](aabc.mp4)
-- Video sau khi predict: [`runs/detect/predict-9/aabc.avi`](runs/detect/predict-9/aabc.avi)
+## Demo
+
+[▶️ Xem video demo](https://drive.google.com/drive/folders/1Lx3WEsT451KcRCbu3BpvsCQjtSx6Zlxi?usp=sharing)
 - Model tot nhat: [`runs/detect/train-4/weights/best.pt`](runs/detect/train-4/weights/best.pt)
 
 > Luu y: GitHub co the khong phat truc tiep dinh dang `.avi`. Tai file video dau ra ve de xem ket qua day du.
