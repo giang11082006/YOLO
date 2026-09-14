@@ -30,11 +30,14 @@ Du lieu nam trong thu muc `dataset/`, duoc chia thanh `train`, `valid` va `test`
 |   |-- test/                  # Anh va nhan kiem thu
 |   `-- data.yaml              # Duong dan dataset va danh sach nhan
 |-- runs/detect/train-4/
-|   |-- weights/best.pt        # Checkpoint co ket qua validation tot nhat
+|   |-- weights/best.pt        # Checkpoint PyTorch tot nhat
+|   `-- weights/best.onnx      # Model ONNX dung cho inference anh
 |   `-- results.png            # Bieu do qua trinh huan luyen
 |-- aabc.mp4                   # Video dau vao
+|-- a.jpg                      # Anh dau vao cho ONNX inference
 |-- train.py                   # Script custom train
-`-- predict.py                 # Script predict video
+|-- predict.py                 # Script predict video
+`-- inference.py               # Script inference anh bang ONNX Runtime
 ```
 
 ## Cai dat
@@ -43,6 +46,12 @@ Yeu cau Python 3.10+.
 
 ```bash
 pip install ultralytics
+```
+
+De chay inference ONNX tren mot anh, cai them cac thu vien:
+
+```bash
+pip install opencv-python numpy onnxruntime
 ```
 
 Kiem tra cai dat:
@@ -86,6 +95,29 @@ model.predict(
     conf=0.25,
 )
 ```
+
+## Inference anh bang ONNX
+
+[`inference.py`](inference.py) chay model ONNX bang ONNX Runtime, sau do ve bounding box va nhan lop len mot anh.
+
+Mac dinh script su dung:
+
+- Model: `runs/detect/train-4/weights/best.onnx`
+- Anh dau vao: `a.jpg`
+- Kich thuoc input model: `640x640`
+- Confidence threshold: `0.25`
+- NMS IoU threshold: `0.45`
+- Anh ket qua: `inference_result.jpg`
+
+Chay lenh:
+
+```bash
+python inference.py
+```
+
+Quy trinh inference gom cac buoc: doc anh, resize ve `640x640`, chuyen BGR sang RGB, chuyen du lieu sang tensor `NCHW`, chay model ONNX, loc confidence, ap dung NMS va ve ket qua len anh goc. Toa do bounding box duoc quy doi tu anh `640x640` ve kich thuoc anh ban dau truoc khi luu.
+
+Anh dau vao va model co the duoc thay doi bang cach sua hai bien `IMAGE_PATH` va `MODEL_PATH` trong [`inference.py`](inference.py).
 
 ## Ket qua huan luyen hien tai
 
